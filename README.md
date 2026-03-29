@@ -60,20 +60,19 @@ python manage.py createsuperuser
 ```
 
 Abrir de forma local:
-[http://127.0.0.1:8000/](http://127.0.0.1:8000/)
-[http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+* [Home](http://127.0.0.1:8000/)
+* [Admin](http://127.0.0.1:8000/admin/)
 
 ## Ejecutar en red local (LAN)
 Para que otras PCs accedan desde la misma red:
-- python manage.py runserver 0.0.0.0:8000
+```bash
+python manage.py runserver 0.0.0.0:8000
+```
 
 Luego desde otra PC:
 - http://<IP_DE_ESTA_PC>:8000/
 
 Asegura permitir el puerto 8000 en el firewall.
-
-## Despliegue “producción” en Windows (LAN)
-- Ver instrucciones en Notion: Instrucciones — Despliegue a producción (PR_0003)
 
 ## Convenciones
 - Layouts: [nombre]_layout.html
