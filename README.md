@@ -28,31 +28,40 @@ Plataforma web (Django) para operar un sistema de pruebas BACnet/IP que controla
   - statics/css/styles.css
 
 ## Requisitos
-- Python 3.x
+- Python 3.13
 - Pipenv
 
 ## Configuración local (Pipenv)
 
 ### 1. Clonar y entrar
-- git clone <URL_DEL_REPO>
-- cd <CARPETA_DEL_REPO>
+```bash
+git clone https://github.com/cjhirashi/innes-cuarto-pruebas.git
+```
 
 ### 2. Crear entorno e instalar dependencias
-- pip install --user pipenv
-- pipenv --python 3.13
-- pipenv install
-- pipenv shell
+```bash
+pipenv install
+pipenv shell
+```
 
-### 3. Migraciones + usuario admin (opcional)
-- python manage.py migrate
-- python manage.py createsuperuser
+### 3. Migraciones
+```bash
+python manage.py migrate
+```
 
-### 4. Levantar servidor
+### 4. Crear superusuario
+```bash
+python manage.py createsuperuser
+```
+
+### 5. Levantar servidor
+```bash
 - python manage.py runserver
+```
 
-Abrir:
-- http://127.0.0.1:8000/
-- http://127.0.0.1:8000/admin/
+Abrir de forma local:
+[http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+[http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
 
 ## Ejecutar en red local (LAN)
 Para que otras PCs accedan desde la misma red:
