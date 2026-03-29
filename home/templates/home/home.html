@@ -1,0 +1,152 @@
+{# home/templates/home/home.html #}
+{# Home — Laboratorio de Cuarto de Pruebas (INNES) #}
+
+{# 1) Cargar layout global #}
+{% extends 'base_layout.html' %}
+
+{# 2) Título de pestaña #}
+{% block title %}INNES — Laboratorio de Cuarto de Pruebas{% endblock %}
+
+{# 3) Contenido principal #}
+{% block content %}
+	{# HERO: propuesta de valor (corporativa) #}
+	<section class="hero">
+		<div class="hero__inner">
+			<div class="hero__copy">
+				<p class="hero__kicker mono">Departamento Técnico</p>
+				<h1 class="hero__title">Laboratorio de Cuarto de Pruebas<br>de INNES</h1>
+				<p class="hero__subtitle">Plataforma para planear, ejecutar y documentar pruebas de medición, orientadas a validar la eficiencia de rejillas y difusores. Resultados claros, repetibles y listos para demostraciones técnicas.</p>
+
+				<div class="hero__cta">
+					<a class="btn" href="#flujo">Ver flujo</a>
+					<a class="btn btn--secondary" href="#pruebas">Pruebas y mediciones</a>
+				</div>
+			</div>
+
+			{# Panel visual (placeholder) para dar look profesional/corporativo #}
+			<div class="hero__panel">
+				<div class="panel">
+					<div class="panel__top">
+						<span class="dot dot--red"></span>
+						<span class="dot dot--yellow"></span>
+						<span class="dot dot--green"></span>
+						<span class="panel__title mono">Ensayo · Resumen</span>
+					</div>
+					<div class="panel__body">
+						<div class="stat">
+							<span class="stat__label">Producto</span>
+							<span class="stat__value">Rejilla / Difusor</span>
+						</div>
+						<div class="stat">
+							<span class="stat__label">Objetivo</span>
+							<span class="stat__value">Eficiencia</span>
+						</div>
+						<div class="stat">
+							<span class="stat__label">Estatus</span>
+							<span class="badge">Listo para documentar</span>
+						</div>
+						<div class="bar">
+							<div class="bar__fill" style="width: 78%"></div>
+						</div>
+						<p class="panel__hint">Trazabilidad · Evidencia · Reportes</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{# CAPACIDADES: qué resuelve el laboratorio #}
+	<section class="section">
+		<div class="section__inner">
+			<h2 class="section__title">¿Qué hace el laboratorio?</h2>
+			<div class="grid">
+				<div class="card">
+					<h3>Planeación de ensayos</h3>
+					<p>Define el objetivo de la prueba, condiciones, criterios de aceptación y evidencia requerida para una demostración sólida.</p>
+				</div>
+				<div class="card">
+					<h3>Ejecución y registro</h3>
+					<p>Centraliza corridas/ensayos y asegura consistencia en captura de datos para resultados comparables.</p>
+				</div>
+				<div class="card">
+					<h3>Trazabilidad técnica</h3>
+					<p>Conserva historial, notas y evidencia por ensayo para auditoría interna y soporte a demostraciones de ventas.</p>
+				</div>
+				<div class="card">
+					<h3>Reportes</h3>
+					<p>Genera salidas presentables: resumen ejecutivo + detalle técnico para comunicación con clientes y stakeholders.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{# FLUJO: pasos de operación (alto nivel) #}
+	<section id="flujo" class="section section--muted">
+		<div class="section__inner">
+			<h2 class="section__title">Flujo de trabajo</h2>
+			<ol class="steps">
+				<li>
+					<span class="steps__n mono">01</span>
+					<div>
+						<h3>Definir el ensayo</h3>
+						<p>Objetivo, condiciones, parámetros de medición y evidencia.</p>
+					</div>
+				</li>
+				<li>
+					<span class="steps__n mono">02</span>
+					<div>
+						<h3>Ejecutar la prueba</h3>
+						<p>Registrar la corrida y capturar datos de forma consistente.</p>
+					</div>
+				</li>
+				<li>
+					<span class="steps__n mono">03</span>
+					<div>
+						<h3>Analizar resultados</h3>
+						<p>Validar calidad de datos y consolidar indicadores clave.</p>
+					</div>
+				</li>
+				<li>
+					<span class="steps__n mono">04</span>
+					<div>
+						<h3>Documentar y presentar</h3>
+						<p>Generar reporte para demostración técnica y respaldo interno.</p>
+					</div>
+				</li>
+			</ol>
+		</div>
+	</section>
+
+	{# PRUEBAS/MEDICIONES: placeholder (se define más adelante) #}
+	<section id="pruebas" class="section">
+		<div class="section__inner">
+			<h2 class="section__title">Pruebas y mediciones</h2>
+			<p class="section__subtitle">Sección reservada para definir el catálogo de pruebas del laboratorio (nombres, objetivos, variables, criterios y formato de evidencia). Se completará más adelante.</p>
+			<div class="grid grid--3">
+				<div class="card">
+					<h3>Catálogo (pendiente)</h3>
+					<p>Definiremos aquí los tipos de pruebas del cuarto de pruebas.</p>
+				</div>
+				<div class="card">
+					<h3>Plantillas (pendiente)</h3>
+					<p>Estructura estándar para corridas, mediciones y reportes.</p>
+				</div>
+				<div class="card">
+					<h3>Evidencia (pendiente)</h3>
+					<p>Checklist de evidencia para demos y documentación técnica.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{# CTA final: discreto (sin mencionar Admin) #}
+	<section class="section section--cta">
+		<div class="section__inner cta">
+			<div>
+				<h2 class="cta__title">Listo para una demostración técnica</h2>
+				<p class="cta__text">Accede a la información del laboratorio y a los reportes asociados a cada ensayo.</p>
+			</div>
+			<a class="btn" href="#">Acceder al sistema</a>
+		</div>
+	</section>
+{% endblock %}

@@ -1,0 +1,700 @@
+/* EXTERNAL STYLESHEET: styles.css
+   Contiene todas las personalizaciones visuales del portafolio.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+    --bg: #030712;
+    --code-bg: #111827;
+    --accent: #2563eb;
+    --border: #1f2937;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    color: #94a3b8;
+    scroll-behavior: smooth;
+}
+
+/* --- NAVBAR (GLOBAL) --- */
+.nav {
+	position: sticky;
+	top: 0;
+	z-index: 50;
+	background: rgba(3, 7, 18, 0.75);
+	backdrop-filter: blur(10px);
+	border-bottom: 1px solid var(--border);
+}
+
+.nav__inner {
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 14px 16px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+}
+
+.nav__brand {
+	font-family: 'JetBrains Mono', monospace;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+	color: #e2e8f0;
+	text-decoration: none;
+}
+
+.nav__links {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+
+.nav__links a {
+	color: #94a3b8;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 14px;
+	padding: 8px 10px;
+	border-radius: 10px;
+	transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.nav__links a:hover {
+	background: rgba(37, 99, 235, 0.12);
+	color: #e2e8f0;
+}
+
+.nav__btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px 14px;
+	border-radius: 12px;
+	background: var(--accent);
+	color: #fff;
+	font-weight: 800;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.nav__btn:hover {
+	opacity: 0.9;
+}
+
+/* --- FOOTER (GLOBAL) --- */
+.footer {
+	margin-top: 40px;
+	border-top: 1px solid var(--border);
+	background: rgba(3, 7, 18, 0.55);
+}
+
+.footer__inner {
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 22px 16px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	flex-wrap: wrap;
+}
+
+.footer__brand {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.footer__logo {
+	font-family: 'JetBrains Mono', monospace;
+	font-weight: 800;
+	color: #e2e8f0;
+}
+
+.footer__tagline {
+	font-size: 13px;
+	color: #94a3b8;
+}
+
+.footer__links {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+
+.footer__links a {
+	color: #94a3b8;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 13px;
+}
+
+.footer__links a:hover {
+	color: #e2e8f0;
+}
+
+.footer__meta {
+	font-size: 12px;
+	color: #64748b;
+}
+
+/* --- HOME (LANDING) --- */
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 12px 16px;
+	border-radius: 14px;
+	background: var(--accent);
+	color: #fff;
+	font-weight: 800;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.btn:hover {
+	opacity: 0.92;
+}
+
+.btn--secondary {
+	background: rgba(148, 163, 184, 0.08);
+	border: 1px solid rgba(148, 163, 184, 0.18);
+	color: #e2e8f0;
+}
+
+.btn--secondary:hover {
+	background: rgba(148, 163, 184, 0.12);
+}
+
+.hero {
+	padding: 42px 0 22px;
+}
+
+.hero__inner {
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 0 16px;
+	display: grid;
+	grid-template-columns: 1.1fr 0.9fr;
+	gap: 24px;
+	align-items: center;
+}
+
+.hero__kicker {
+	color: #60a5fa;
+	font-weight: 800;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	font-size: 12px;
+	margin: 0 0 10px;
+}
+
+.hero__title {
+	color: #e2e8f0;
+	font-size: 42px;
+	line-height: 1.06;
+	letter-spacing: -0.02em;
+	margin: 0 0 12px;
+}
+
+.hero__subtitle {
+	color: #94a3b8;
+	font-size: 16px;
+	line-height: 1.65;
+	margin: 0;
+}
+
+.hero__cta {
+	margin-top: 18px;
+	display: flex;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+.panel {
+	border: 1px solid rgba(148, 163, 184, 0.18);
+	border-radius: 18px;
+	background: linear-gradient(180deg, rgba(15, 23, 42, 0.7), rgba(2, 6, 23, 0.7));
+	overflow: hidden;
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.panel__top {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 12px 14px;
+	border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.panel__title {
+	margin-left: 6px;
+	color: #cbd5e1;
+	font-size: 12px;
+}
+
+.dot {
+	width: 10px;
+	height: 10px;
+	border-radius: 999px;
+	display: inline-block;
+}
+
+.dot--red { background: #ef4444; }
+.dot--yellow { background: #f59e0b; }
+.dot--green { background: #22c55e; }
+
+.panel__body {
+	padding: 14px;
+	display: grid;
+	gap: 10px;
+}
+
+.stat {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.stat__label {
+	color: #94a3b8;
+	font-size: 12px;
+}
+
+.stat__value {
+	color: #e2e8f0;
+	font-weight: 800;
+}
+
+.badge {
+	display: inline-flex;
+	padding: 6px 10px;
+	border-radius: 999px;
+	font-size: 12px;
+	font-weight: 800;
+	background: rgba(34, 197, 94, 0.14);
+	border: 1px solid rgba(34, 197, 94, 0.3);
+	color: #86efac;
+}
+
+.bar {
+	height: 10px;
+	border-radius: 999px;
+	background: rgba(148, 163, 184, 0.12);
+	overflow: hidden;
+}
+
+.bar__fill {
+	height: 100%;
+	background: linear-gradient(90deg, rgba(37, 99, 235, 0.8), rgba(96, 165, 250, 0.9));
+}
+
+.panel__hint {
+	margin: 0;
+	color: #64748b;
+	font-size: 12px;
+}
+
+.section {
+	padding: 28px 0;
+}
+
+.section--muted {
+	background: rgba(15, 23, 42, 0.35);
+	border-top: 1px solid rgba(148, 163, 184, 0.10);
+	border-bottom: 1px solid rgba(148, 163, 184, 0.10);
+}
+
+.section__inner {
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 0 16px;
+}
+
+.section__title {
+	color: #e2e8f0;
+	font-size: 22px;
+	margin: 0 0 16px;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 14px;
+}
+
+.grid--3 {
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.card {
+	border: 1px solid rgba(148, 163, 184, 0.16);
+	background: rgba(2, 6, 23, 0.45);
+	border-radius: 18px;
+	padding: 16px;
+}
+
+.card h3 {
+	color: #e2e8f0;
+	margin: 0 0 8px;
+	font-size: 16px;
+}
+
+.card p {
+	margin: 0;
+	color: #94a3b8;
+	line-height: 1.6;
+}
+
+.steps {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	gap: 12px;
+}
+
+.steps li {
+	display: grid;
+	grid-template-columns: 54px 1fr;
+	gap: 12px;
+	padding: 14px;
+	border-radius: 18px;
+	border: 1px solid rgba(148, 163, 184, 0.14);
+	background: rgba(2, 6, 23, 0.35);
+}
+
+.steps__n {
+	color: #60a5fa;
+	font-weight: 900;
+	font-size: 16px;
+}
+
+.steps h3 {
+	margin: 0 0 4px;
+	color: #e2e8f0;
+	font-size: 16px;
+}
+
+.steps p {
+	margin: 0;
+	color: #94a3b8;
+}
+
+.section--cta {
+	padding: 34px 0 18px;
+}
+
+.cta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	border: 1px solid rgba(148, 163, 184, 0.16);
+	background: linear-gradient(135deg, rgba(37, 99, 235, 0.16), rgba(2, 6, 23, 0.15));
+	border-radius: 18px;
+	padding: 18px;
+}
+
+.cta__title {
+	margin: 0 0 6px;
+	color: #e2e8f0;
+}
+
+.cta__text {
+	margin: 0;
+	color: #94a3b8;
+}
+
+@media (max-width: 980px) {
+	.hero__inner {
+		grid-template-columns: 1fr;
+	}
+	.grid {
+		grid-template-columns: 1fr;
+	}
+	.grid--3 {
+		grid-template-columns: 1fr;
+	}
+}
+
+h1 {
+    color: #e0e0e0;
+    margin-bottom: 24px;
+}
+
+h2 {
+    color: #e0e0e0;
+    margin-bottom: 20px;
+}
+
+/* Tipografía Monoespaciada */
+.mono { 
+    font-family: 'JetBrains Mono', monospace; 
+}
+
+/* Efectos de Navegación */
+.nav-link {
+    transition: all 0.2s ease;
+}
+
+/* Animación de entrada suave */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in { 
+    animation: slideUp 0.5s ease-out forwards; 
+}
+
+.delay-1 { 
+    animation-delay: 0.1s; 
+}
+
+/* Contenedores de Visualización de Datos */
+.dashboard-preview {
+    background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Estilo de Gráficos Simulados */
+.chart-bar {
+    background: var(--accent);
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.group:hover .chart-bar {
+    opacity: 1;
+    transform: scaleY(1.1);
+}
+
+/* --- CONTENEDOR MAESTRO DE MARKDOWN --- */
+/* Estas reglas aseguran que el reset de Tailwind no rompa el formato técnico */
+
+.markdown-container {
+    line-height: 1.7;
+    color: #cbd5e1;
+}
+
+/* Párrafos: Restauramos el bloque para permitir saltos de línea */
+.markdown-container p {
+    display: block !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* Listas: Restauramos viñetas y sangrías */
+.markdown-container ul {
+    list-style-type: disc !important;
+    margin-left: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.markdown-container ol {
+    list-style-type: decimal !important;
+    margin-left: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.markdown-container li {
+    display: list-item !important;
+    margin-bottom: 0.5rem !important;
+    padding-left: 0.5rem;
+}
+
+/* Títulos dentro de Markdown */
+.markdown-container h1, 
+.markdown-container h2, 
+.markdown-container h3 {
+    color: #2563eb !important;
+    font-weight: 700 !important;
+    margin-top: 2rem !important;
+    margin-bottom: 1rem !important;
+}
+
+/* Énfasis y Negritas */
+.markdown-container strong, 
+.markdown-container b {
+    color: #2563eb !important;
+    font-weight: 700 !important;
+}
+
+.markdown-container em, 
+.markdown-container i {
+    font-style: italic;
+    color: #e2e8f0;
+}
+
+/* Enlaces */
+.markdown-container a {
+    color: var(--accent);
+    text-decoration: underline;
+    transition: opacity 0.2s;
+}
+
+.markdown-container a:hover {
+    opacity: 0.8;
+}
+
+/* --- BLOQUES DE CÓDIGO (ESTILO TERMINAL) --- */
+
+/* Bloque completo (```python) */
+.markdown-container pre {
+    background-color: #0f172a !important; /* Fondo azul muy oscuro */
+    padding: 1.5rem !important;
+    border-radius: 0.75rem !important;
+    border: 1px solid #1e293b !important;
+    overflow-x: auto !important;
+    margin: 1.5rem 0 !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+}
+
+/* Texto de código */
+.markdown-container code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+    font-size: 0.9em !important;
+    background: rgba(59, 130, 246, 0.1);
+    color: #60a5fa !important;  /* Azul claro para código */
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.375rem;
+}
+
+/* Evitar fondo en código dentro de bloques pre */
+.markdown-container pre code {
+    /*color: inherit !important; */
+    background: transparent !important;
+    padding: 0 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    border-radius: 0 !important;
+}
+
+/* SOLUCIÓN REAL: Colores específicos para los tokens de Highlight.js.
+   Usamos selectores descendentes para ganar la batalla de especificidad 
+   sin romper el resto del sitio.
+*/
+/* Keywords / Palabras clave (def, return, if, etc.) */
+.markdown-container .hljs-keyword, 
+.markdown-container .codehilite .k, 
+.markdown-container .codehilite .kn, 
+.markdown-container .codehilite .kp, 
+.markdown-container .codehilite .kr { 
+    color: #c678dd !important; 
+    font-weight: bold !important; 
+} 
+
+/* Strings / Cadenas de texto */
+.markdown-container .hljs-string, 
+.markdown-container .codehilite .s, 
+.markdown-container .codehilite .s1, 
+.markdown-container .codehilite .s2, 
+.markdown-container .codehilite .sb, 
+.markdown-container .codehilite .sc, 
+.markdown-container .codehilite .sd { 
+    color: #98c379 !important; 
+} 
+
+/* Funciones y Clases */
+.markdown-container .hljs-title, 
+.markdown-container .hljs-function, 
+.markdown-container .codehilite .nf, 
+.markdown-container .codehilite .nc, 
+.markdown-container .codehilite .nn,
+.markdown-container .codehilite .fm { 
+    color: #61afef !important; 
+} 
+
+/* Variables, Parámetros y Atributos */
+.markdown-container .hljs-variable, 
+.markdown-container .hljs-params, 
+.markdown-container .hljs-attr,
+.markdown-container .codehilite .nv, 
+.markdown-container .codehilite .vi, 
+.markdown-container .codehilite .v,
+.markdown-container .codehilite .nb { 
+    color: #e06c75 !important; 
+} 
+
+/* Comentarios */
+.markdown-container .hljs-comment, 
+.markdown-container .hljs-quote,
+.markdown-container .codehilite .c, 
+.markdown-container .codehilite .c1, 
+.markdown-container .codehilite .cm { 
+    color: #5c6370 !important; 
+    font-style: italic !important; 
+} 
+
+/* Números y Literales */
+.markdown-container .hljs-number, 
+.markdown-container .hljs-literal, 
+.markdown-container .codehilite .m, 
+.markdown-container .codehilite .mi, 
+.markdown-container .codehilite .mf, 
+.markdown-container .codehilite .mo { 
+    color: #d19a66 !important; 
+} 
+
+/* Operadores y Puntuación */
+.markdown-container .codehilite .o, 
+.markdown-container .codehilite .p {
+    color: #abb2bf !important;
+}
+
+/* Estilo para código en línea (fuera de bloques pre) */
+.markdown-container :not(pre):not(.codehilite) > code {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 0.9em !important;
+    background: rgba(37, 99, 235, 0.1);
+    color: #60a5fa !important;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.375rem;
+}
+
+
+/* Blockquotes (Citas) */
+.markdown-container blockquote {
+    border-left: 4px solid var(--accent);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: #94a3b8;
+}
+
+/* --- BOTONES DE ACCIÓN (GITHUB / WEB) --- */
+.btn-action-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.75rem;
+    background-color: rgba(31, 41, 55, 0.4);
+    border: 1px solid rgba(55, 65, 81, 0.5);
+    color: #94a3b8;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-action-icon:hover {
+    background-color: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+}
+
+.btn-action-icon:active {
+    transform: scale(0.92);
+}

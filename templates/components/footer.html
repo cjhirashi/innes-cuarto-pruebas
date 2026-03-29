@@ -1,0 +1,24 @@
+{# templates/components/footer.html #}
+{# Footer global (se incluye desde base.html) #}
+
+<footer class="footer">
+	{# Contenedor: ancho máximo + paddings #}
+	<div class="footer__inner">
+		{# Marca del proyecto / tagline #}
+		<div class="footer__brand">
+			<span class="footer__logo">INNES</span>
+			<span class="footer__tagline">Sistema de pruebas BACnet (MVP)</span>
+		</div>
+
+		{# Links rápidos globales #}
+		<ul class="footer__links">
+			<li><a href="{% url 'home:home' %}">Inicio</a></li>
+			<li><a href="/admin/">Admin</a></li>
+		</ul>
+
+		{# Meta (copyright dinámico) #}
+		<div class="footer__meta">
+			<small>© {% now 'Y' %} INNES</small>
+		</div>
+	</div>
+</footer>
