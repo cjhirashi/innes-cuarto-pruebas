@@ -1,0 +1,54 @@
+{# bacnet/templates/inventory.html #}
+
+{% extends 'bacnet/admin_layout.html' %}
+
+{% block title %}BACnet - Inventario{% endblock %}
+{% block page_title %}Inventario{% endblock %}
+{% block page_subtitle %}Dispositivos y puntos persistidos{% endblock %}
+
+{% block content %}
+	<form method="get" action="{% url 'bacnet:inventory' %}">
+		<div class="grid">
+			<div class="col-6">
+				<input class="input" name="q" placeholder="Buscar device_instance / IP" value="\{\{ q|default:'' \}\}" style="width:100%;" />
+			</div>
+			<div class="col-6" style="display:flex; gap:10px; justify-content:flex-end;">
+				<button class="btn" type="submit">Buscar</button>
+				<a class="btn" href="{% url 'bacnet:inventory' %}">Limpiar</a>
+			</div>
+		</div>
+	</form>
+
+	{% if counts %}
+		<p class="meta">Dispositivos: \{\{ counts.devices \}\} | Puntos: \{\{ counts.points \}\}</p>
+	{% endif %}
+
+	<table class="table" style="margin-top:12px;">
+		<thead>
+			<tr>
+				<th>Device</th>
+				<th>IP</th>
+				<th>Vendor</th>
+				<th>Last seen</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for d in devices %}
+				<tr>
+					<td>\{\{ d.device_instance \}\}</td>
+					<td>\{\{ d.ip \}\}</td>
+					<td>\{\{ d.vendor_id \}\}</td>
+					<td>\{\{ d.last_seen_at \}\}</td>
+					<td style="text-align:right;">
+						<a class="btn" href="{% url 'bacnet:device_detail' d.device_instance %}">Ver detalle</a>
+					</td>
+				</tr>
+			{% empty %}
+				<tr>
+					<td colspan="5">Sin dispositivos aún.</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

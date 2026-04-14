@@ -1,0 +1,83 @@
+{# bacnet/templates/settings.html #}
+
+{% extends 'bacnet/admin_layout.html' %}
+
+{% block title %}BACnet - Ajustes{% endblock %}
+{% block page_title %}Ajustes{% endblock %}
+{% block page_subtitle %}Parámetros de comunicación BACnet/IP{% endblock %}
+
+{% block content %}
+	{% if saved_ok %}
+		<p class="pill pill-ok">Guardado correctamente</p>
+	{% endif %}
+
+	{% if message %}
+		<p class="pill">{{ message }}</p>
+	{% endif %}
+
+	<form method="post" action="{% url 'bacnet:settings_save' %}">
+		{% csrf_token %}
+
+		<div class="grid">
+			<div class="card col-6">
+				<h3>Conexión BACnet/IP</h3>
+
+				<label>Bind IP</label><br>
+				{{ form.bind_ip }}
+				{% if form.bind_ip.errors %}<div class="pill pill-fail">{{ form.bind_ip.errors }}</div>{% endif %}
+				<br><br>
+
+				<label>Máscara</label><br>
+				{{ form.mask }}
+				{% if form.mask.errors %}<div class="pill pill-fail">{{ form.mask.errors }}</div>{% endif %}
+				<br><br>
+
+				<label>Puerto local</label><br>
+				{{ form.local_port }}
+				{% if form.local_port.errors %}<div class="pill pill-fail">{{ form.local_port.errors }}</div>{% endif %}
+				<br><br>
+
+				<label>Broadcast</label><br>
+				{{ form.broadcast }}
+				{% if form.broadcast.errors %}<div class="pill pill-fail">{{ form.broadcast.errors }}</div>{% endif %}
+			</div>
+
+			<div class="card col-6">
+				<h3>Discovery / Timeouts</h3>
+
+				<label>Timeout (seg)</label><br>
+				{{ form.timeout_seconds }}
+				{% if form.timeout_seconds.errors %}<div class="pill pill-fail">{{ form.timeout_seconds.errors }}</div>{% endif %}
+				<br><br>
+
+				<label>Retries</label><br>
+				{{ form.retries }}
+				{% if form.retries.errors %}<div class="pill pill-fail">{{ form.retries.errors }}</div>{% endif %}
+				<br><br>
+
+				<label>Discovery interval (seg)</label><br>
+				{{ form.discovery_interval_sec }}
+				{% if form.discovery_interval_sec.errors %}<div class="pill pill-fail">{{ form.discovery_interval_sec.errors }}</div>{% endif %}
+				<br><br>
+
+				<label>Offline threshold (ciclos)</label><br>
+				{{ form.offline_threshold_broadcast_cycles }}
+				{% if form.offline_threshold_broadcast_cycles.errors %}<div class="pill pill-fail">{{ form.offline_threshold_broadcast_cycles.errors }}</div>{% endif %}
+			</div>
+
+			<div class="card col-6">
+				<h3>Defaults de escritura</h3>
+
+				<label>Write priority default (1–8)</label><br>
+				{{ form.write_priority_default }}
+				{% if form.write_priority_default.errors %}<div class="pill pill-fail">{{ form.write_priority_default.errors }}</div>{% endif %}
+			</div>
+
+			<div class="card col-6">
+				<h3>Acciones</h3>
+				<p class="meta">Guarda la configuración y vuelve a intentar el flujo (scan/inventory/tests).</p>
+				<button class="btn" type="submit">Guardar</button>
+			</div>
+		</div>
+	</form>
+{% endblock %}

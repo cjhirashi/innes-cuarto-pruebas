@@ -18,8 +18,12 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
+    # BACnet (UI admin propia del proyecto)
+	path("admin/bacnet/", include("bacnet.urls")),
+ 
     path('admin/', admin.site.urls),
     
     # Core (home)
 	path("", include("home.urls")),
 ]
+

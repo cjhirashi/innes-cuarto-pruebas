@@ -1,0 +1,70 @@
+{# bacnet/templates/audit.html #}
+
+{% extends 'bacnet/admin_layout.html' %}
+
+{% block title %}BACnet - Auditoría{% endblock %}
+{% block page_title %}Auditoría{% endblock %}
+{% block page_subtitle %}Eventos BACnet (SCAN/WRITE/RELEASE/etc.){% endblock %}
+
+{% block content %}
+	<form method="get" action="{% url 'bacnet:audit' %}">
+		<div class="grid">
+			<div class="col-6">
+				<label class="meta">Acción</label><br>
+				<select class="input" name="action" style="width:100%;">
+					<option value="" {% if not action %}selected{% endif %}>Todas</option>
+					<option value="SCAN" {% if action == 'SCAN' %}selected{% endif %}>SCAN</option>
+					<option value="READ_PV" {% if action == 'READ_PV' %}selected{% endif %}>READ_PV</option>
+					<option value="WRITE_PV" {% if action == 'WRITE_PV' %}selected{% endif %}>WRITE_PV</option>
+					<option value="RELEASE" {% if action == 'RELEASE' %}selected{% endif %}>RELEASE</option>
+					<option value="RELEASE_ALL" {% if action == 'RELEASE_ALL' %}selected{% endif %}>RELEASE_ALL</option>
+				</select>
+			</div>
+			<div class="col-6" style="display:flex; justify-content:flex-end; gap:10px; align-items:flex-end;">
+				<button class="btn" type="submit">Filtrar</button>
+				<a class="btn" href="{% url 'bacnet:audit' %}">Limpiar</a>
+			</div>
+		</div>
+	</form>
+
+	<table class="table" style="margin-top:12px;">
+		<thead>
+			<tr>
+				<th>ts</th>
+				<th>user</th>
+				<th>action</th>
+				<th>device</th>
+				<th>object</th>
+				<th>priority</th>
+				<th>value</th>
+				<th>result</th>
+				<th>message</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for e in events %}
+				<tr>
+					<td>\{\{ e.created_at \}\}</td>
+					<td>\{\{ e.user \}\}</td>
+					<td>\{\{ e.action \}\}</td>
+					<td>\{\{ e.device_instance \}\}</td>
+					<td>\{\{ e.object_id_str \}\}</td>
+					<td>\{\{ e.priority \}\}</td>
+					<td>\{\{ e.value \}\}</td>
+					<td>
+						{% if e.result == 'OK' %}
+							<span class="pill pill-ok">OK</span>
+						{% else %}
+							<span class="pill pill-fail">FAIL</span>
+						{% endif %}
+					</td>
+					<td><pre style="margin:0; white-space:pre-wrap;">\{\{ e.technical_message \}\}</pre></td>
+				</tr>
+			{% empty %}
+				<tr>
+					<td colspan="9">Sin eventos.</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

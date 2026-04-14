@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home.apps.HomeConfig',
+    'bacnet.apps.BacnetConfig',
 ]
 
 MIDDLEWARE = [

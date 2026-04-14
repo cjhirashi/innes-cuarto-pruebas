@@ -1,0 +1,51 @@
+{# bacnet/templates/point_history_settings.html #}
+
+{% extends 'bacnet/admin_layout.html' %}
+
+{% block title %}Histórico - \{\{ point.object_id_str \}\}{% endblock %}
+{% block page_title %}Histórico por punto{% endblock %}
+{% block page_subtitle %}\{\{ device.device_instance \}\} · \{\{ point.object_id_str \}\}{% endblock %}
+
+{% block top_actions %}
+	<a class="btn" href="{% url 'bacnet:device_detail' device.device_instance %}">← Volver a dispositivo</a>
+{% endblock %}
+
+{% block content %}
+	<form method="post" action="{% url 'bacnet:point_history_settings_save' device.device_instance point.object_id_str %}">
+		{% csrf_token %}
+
+		<div class="grid">
+			<div class="card col-6">
+				<label>
+					\{\{ form.historical_enabled \}\}
+					Habilitar histórico
+				</label>
+				{% if form.historical_enabled.errors %}
+					<div class="pill pill-fail">\{\{ form.historical_enabled.errors \}\}</div>
+				{% endif %}
+			</div>
+
+			<div class="card col-6">
+				<label>Intervalo base (segundos)</label><br>
+				\{\{ form.historical_interval_sec \}\}
+				{% if form.historical_interval_sec.errors %}
+					<div class="pill pill-fail">\{\{ form.historical_interval_sec.errors \}\}</div>
+				{% endif %}
+			</div>
+
+			<div class="card col-6">
+				<label>Intervalo muestreo histórico (segundos) (opcional)</label><br>
+				\{\{ form.historical_sample_interval_sec \}\}
+				<p class="meta">Regla: debe ser ≥ al intervalo base.</p>
+				{% if form.historical_sample_interval_sec.errors %}
+					<div class="pill pill-fail">\{\{ form.historical_sample_interval_sec.errors \}\}</div>
+				{% endif %}
+			</div>
+
+			<div class="card col-6">
+				<h3>Acciones</h3>
+				<button class="btn" type="submit">Guardar</button>
+			</div>
+		</div>
+	</form>
+{% endblock %}

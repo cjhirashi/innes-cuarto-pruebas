@@ -1,0 +1,71 @@
+{# bacnet/templates/scan.html #}
+
+{% extends 'bacnet/admin_layout.html' %}
+
+{% block title %}BACnet - Escaneo{% endblock %}
+{% block page_title %}Escaneo{% endblock %}
+{% block page_subtitle %}Discovery (Who-Is / I-Am) + sincronización a BD{% endblock %}
+
+{% block content %}
+	<form method="post" action="{% url 'bacnet:scan_run' %}">
+		{% csrf_token %}
+		<button class="btn" type="submit">Iniciar escaneo</button>
+	</form>
+
+	{% if last_result %}
+		<div style="margin-top:12px;">
+			{% if last_result.ok %}
+				<p class="pill pill-ok">OK</p>
+				<p class="meta">Dispositivos reportados por poller: {{ last_result.poller_devices }}</p>
+				<p class="meta">DB creados: {{ last_result.db.created }} | actualizados: {{ last_result.db.updated }} | sin cambios: {{ last_result.db.unchanged }}</p>
+			{% else %}
+				<p class="pill pill-fail">Error: {{ last_result.error }}</p>
+			{% endif %}
+		</div>
+	{% endif %}
+
+	{% if last_remap_result %}
+		<div style="margin-top:12px;">
+			{% if last_remap_result.ok %}
+				<p class="pill pill-ok">Remapeo OK (device {{ last_remap_result.device_instance }})</p>
+				<p class="meta">Puntos creados: {{ last_remap_result.points.created }} | actualizados: {{ last_remap_result.points.updated }} | eliminados: {{ last_remap_result.points.deleted }}</p>
+			{% else %}
+				<p class="pill pill-fail">Remapeo FAIL: {{ last_remap_result.error }}</p>
+			{% endif %}
+		</div>
+	{% endif %}
+
+	<h3 style="margin-top:14px;">Inventario (DB)</h3>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Device</th>
+				<th>IP</th>
+				<th>Vendor</th>
+				<th>Last seen</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for d in devices %}
+				<tr>
+					<td>{{ d.device_instance }}</td>
+					<td>{{ d.ip }}</td>
+					<td>{{ d.vendor_id }}</td>
+					<td>{{ d.last_seen_at }}</td>
+					<td style="text-align:right; display:flex; gap:10px; justify-content:flex-end;">
+						<a class="btn" href="{% url 'bacnet:device_detail' d.device_instance %}">Detalle</a>
+						<form method="post" action="{% url 'bacnet:device_remap_points' d.device_instance %}" style="margin:0;">
+							{% csrf_token %}
+							<button class="btn btn-danger" type="submit">Remap puntos</button>
+						</form>
+					</td>
+				</tr>
+			{% empty %}
+				<tr>
+					<td colspan="5">Sin dispositivos aún.</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

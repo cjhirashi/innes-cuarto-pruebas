@@ -58,5 +58,10 @@ async def discover_devices(
         # Filtramos entradas incompletas
         return [d for d in devices if d.get("device_id") is not None and d.get("ip")]
 
+    except asyncio.TimeoutError:
+        # Modo amigable (dev/offline): si no hay respuestas I-Am en el tiempo,
+        # devolvemos lista vacía en lugar de error.
+        return []
+
     except Exception as e:
         raise DeviceTimeoutError(f"Fallo en discovery: {e}") from e

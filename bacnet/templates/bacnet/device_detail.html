@@ -1,0 +1,123 @@
+{# bacnet/templates/device_detail.html #}
+
+{% extends 'bacnet/admin_layout.html' %}
+
+{% block title %}BACnet - Device \{\{ device.device_instance \}\}{% endblock %}
+{% block page_title %}Dispositivo \{\{ device.device_instance \}\}{% endblock %}
+{% block page_subtitle %}Inventario persistente + acciones por punto{% endblock %}
+
+{% block top_actions %}
+	<a class="btn" href="{% url 'bacnet:scan' %}">← Escaneo</a>
+{% endblock %}
+
+{% block content %}
+	<div class="grid">
+		<div class="card col-6">
+			<h3>Resumen</h3>
+			<p class="meta">IP: \{\{ device.ip \}\}</p>
+			<p class="meta">Vendor ID: \{\{ device.vendor_id \}\}</p>
+			<p class="meta">Last seen: \{\{ device.last_seen_at \}\}</p>
+
+			<form method="post" action="{% url 'bacnet:device_remap_points' device.device_instance %}">
+				{% csrf_token %}
+				<button class="btn btn-danger" type="submit">Actualizar mapeo de puntos (hard delete)</button>
+			</form>
+		</div>
+
+		<div class="card col-6">
+			<h3>Últimos resultados</h3>
+			{% if last_remap_result %}
+				{% if last_remap_result.ok %}
+					<p class="pill pill-ok">Remap OK</p>
+					<p class="meta">created=\{\{ last_remap_result.points.created \}\} updated=\{\{ last_remap_result.points.updated \}\} deleted=\{\{ last_remap_result.points.deleted \}\}</p>
+				{% else %}
+					<p class="pill pill-fail">Remap FAIL: \{\{ last_remap_result.error \}\}</p>
+				{% endif %}
+			{% endif %}
+
+			{% if last_write_result %}
+				{% if last_write_result.ok %}
+					<p class="pill pill-ok">Write OK: \{\{ last_write_result.object_id_str \}\}</p>
+				{% else %}
+					<p class="pill pill-fail">Write FAIL: \{\{ last_write_result.error \}\}</p>
+				{% endif %}
+			{% endif %}
+
+			{% if last_release_result %}
+				{% if last_release_result.ok %}
+					<p class="pill pill-ok">Release OK: \{\{ last_release_result.object_id_str \}\}</p>
+				{% else %}
+					<p class="pill pill-fail">Release FAIL: \{\{ last_release_result.error \}\}</p>
+				{% endif %}
+			{% endif %}
+
+			{% if last_release_all_result %}
+				{% if last_release_all_result.ok %}
+					<p class="pill pill-ok">Release-all OK: \{\{ last_release_all_result.object_id_str \}\}</p>
+				{% else %}
+					<p class="pill pill-fail">Release-all FAIL: \{\{ last_release_all_result.error \}\}</p>
+				{% endif %}
+			{% endif %}
+		</div>
+	</div>
+
+	<h3 style="margin-top:14px;">Puntos</h3>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>object_id</th>
+				<th>name</th>
+				<th>units</th>
+				<th>description</th>
+				<th>acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for p in points %}
+				<tr>
+					<td>\{\{ p.object_id_str \}\}</td>
+					<td>\{\{ p.object_name \}\}</td>
+					<td>\{\{ p.units \}\}</td>
+					<td>\{\{ p.description \}\}</td>
+					<td style="text-align:right;">
+						<a class="btn" href="{% url 'bacnet:point_history_settings_page' device.device_instance p.object_id_str %}">Histórico</a>
+						<br><br>
+
+						<form method="post" action="{% url 'bacnet:point_write_present_value' device.device_instance p.object_id_str %}">
+							{% csrf_token %}
+							<input class="input" name="value" placeholder="value" style="width:100%;" />
+							<br><br>
+							<input class="input" name="priority" placeholder="priority (1-8)" style="width:100%;" />
+							<br><br>
+							<input class="input" name="reason" placeholder="reason" style="width:100%;" />
+							<br><br>
+							<button class="btn" type="submit">Write PV</button>
+						</form>
+
+						<hr style="border-color:rgba(255,255,255,.08);">
+
+						<form method="post" action="{% url 'bacnet:point_release_present_value' device.device_instance p.object_id_str %}">
+							{% csrf_token %}
+							<input class="input" name="priority" placeholder="priority (1-16)" style="width:100%;" />
+							<br><br>
+							<input class="input" name="reason" placeholder="reason" style="width:100%;" />
+							<br><br>
+							<button class="btn" type="submit">Release</button>
+						</form>
+
+						<form method="post" action="{% url 'bacnet:point_release_present_value_all' device.device_instance p.object_id_str %}">
+							{% csrf_token %}
+							<input class="input" name="reason" placeholder="reason" style="width:100%;" />
+							<br><br>
+							<button class="btn btn-danger" type="submit">Release all</button>
+						</form>
+					</td>
+				</tr>
+			{% empty %}
+				<tr>
+					<td colspan="5">Sin puntos aún.</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

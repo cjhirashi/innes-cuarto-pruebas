@@ -1,0 +1,93 @@
+{# bacnet/templates/tests.html #}
+
+{% extends 'bacnet/admin_layout.html' %}
+
+{% block title %}BACnet - Pruebas{% endblock %}
+{% block page_title %}Pruebas{% endblock %}
+{% block page_subtitle %}Write / Release sobre un punto seleccionado{% endblock %}
+
+{% block content %}
+	<form method="get" action="{% url 'bacnet:tests' %}">
+		<div class="grid">
+			<div class="col-6">
+				<label class="meta">Device instance</label><br>
+				<input class="input" name="device_instance" value="\{\{ device_instance|default:'' \}\}" placeholder="1234" style="width:100%;" />
+			</div>
+			<div class="col-6">
+				<label class="meta">object_id_str</label><br>
+				<input class="input" name="object_id_str" value="\{\{ object_id_str|default:'' \}\}" placeholder="analogValue:3" style="width:100%;" />
+			</div>
+			<div class="col-12" style="display:flex; justify-content:flex-end; gap:10px;">
+				<button class="btn" type="submit">Cargar</button>
+			</div>
+		</div>
+	</form>
+
+	{% if device_instance and object_id_str %}
+		<div class="grid" style="margin-top:12px;">
+			<div class="card col-6">
+				<h3>Write presentValue</h3>
+				<form method="post" action="{% url 'bacnet:point_write_present_value' device_instance object_id_str %}">
+					{% csrf_token %}
+					<input class="input" name="value" placeholder="value" style="width:100%;" />
+					<br><br>
+					<input class="input" name="priority" placeholder="priority (1-8)" style="width:100%;" />
+					<br><br>
+					<input class="input" name="reason" placeholder="reason" style="width:100%;" />
+					<br><br>
+					<button class="btn" type="submit">Write PV</button>
+				</form>
+			</div>
+
+			<div class="card col-6">
+				<h3>Release</h3>
+				<form method="post" action="{% url 'bacnet:point_release_present_value' device_instance object_id_str %}">
+					{% csrf_token %}
+					<input class="input" name="priority" placeholder="priority (1-16)" style="width:100%;" />
+					<br><br>
+					<input class="input" name="reason" placeholder="reason" style="width:100%;" />
+					<br><br>
+					<button class="btn" type="submit">Release</button>
+				</form>
+
+				<hr style="border-color:rgba(255,255,255,.08);">
+
+				<h3>Release all</h3>
+				<form method="post" action="{% url 'bacnet:point_release_present_value_all' device_instance object_id_str %}">
+					{% csrf_token %}
+					<input class="input" name="reason" placeholder="reason" style="width:100%;" />
+					<br><br>
+					<button class="btn btn-danger" type="submit">Release all</button>
+				</form>
+			</div>
+		</div>
+	{% else %}
+		<p class="meta" style="margin-top:12px;">Captura <code>device_instance</code> y <code>object_id_str</code> para habilitar acciones.</p>
+	{% endif %}
+
+	<div style="margin-top:12px;">
+		{% if last_write_result %}
+			{% if last_write_result.ok %}
+				<p class="pill pill-ok">Write OK: \{\{ last_write_result.object_id_str \}\}</p>
+			{% else %}
+				<p class="pill pill-fail">Write FAIL: \{\{ last_write_result.error \}\}</p>
+			{% endif %}
+		{% endif %}
+
+		{% if last_release_result %}
+			{% if last_release_result.ok %}
+				<p class="pill pill-ok">Release OK: \{\{ last_release_result.object_id_str \}\}</p>
+			{% else %}
+				<p class="pill pill-fail">Release FAIL: \{\{ last_release_result.error \}\}</p>
+			{% endif %}
+		{% endif %}
+
+		{% if last_release_all_result %}
+			{% if last_release_all_result.ok %}
+				<p class="pill pill-ok">Release-all OK: \{\{ last_release_all_result.object_id_str \}\}</p>
+			{% else %}
+				<p class="pill pill-fail">Release-all FAIL: \{\{ last_release_all_result.error \}\}</p>
+			{% endif %}
+		{% endif %}
+	</div>
+{% endblock %}

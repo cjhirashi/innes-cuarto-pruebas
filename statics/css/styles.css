@@ -18,6 +18,48 @@ body {
     scroll-behavior: smooth;
 }
 
+/* -------------------------------------------------------------------------- */
+/* FORMS (GLOBAL) — Dark inputs/selects/textareas */
+/* -------------------------------------------------------------------------- */
+/*
+Regla global del proyecto: todos los campos de formulario deben verse oscuros.
+Esto evita que los widgets default del navegador/Django se vean con fondo blanco.
+*/
+
+input,
+textarea,
+select {
+	background: rgba(2, 6, 23, 0.55);
+	border: 1px solid rgba(148, 163, 184, 0.22);
+	color: #e2e8f0;
+	border-radius: 0.75rem;
+	padding: 0.65rem 0.8rem;
+	outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+	border-color: rgba(37, 99, 235, 0.75);
+	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+input::placeholder,
+textarea::placeholder {
+	color: rgba(148, 163, 184, 0.75);
+}
+
+/* Excepciones: checkboxes/radios no deben forzarse a "campo" */
+input[type="checkbox"],
+input[type="radio"] {
+	width: auto;
+	height: auto;
+	padding: 0;
+	border-radius: 0.25rem;
+	background: transparent;
+	box-shadow: none;
+}
+
 /* --- NAVBAR (GLOBAL) --- */
 .nav {
 	position: sticky;
@@ -62,7 +104,7 @@ body {
 	font-size: 14px;
 	padding: 8px 10px;
 	border-radius: 10px;
-	transition: background-color 0.15s ease, color 1s ease;
+	transition: background-color 0.15s ease, color 2s ease;
 }
 
 .nav__links a:hover {
