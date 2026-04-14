@@ -1,0 +1,21 @@
+# innes_cuarto_pruebas/bacnet_gateway/__init__.py
+
+"""BACnet Gateway (PR_0003).
+
+Este paquete NO administra lifecycle del socket.
+El lifecycle vive en bacnet_poller (proceso único).
+"""
+
+from .errors import (
+    BACnetGatewayError,
+    DeviceTimeoutError,
+    PropertyReadError,
+    PropertyWriteError,
+)
+
+__all__ = [
+    "BACnetGatewayError",
+    "DeviceTimeoutError",
+    "PropertyReadError",
+    "PropertyWriteError",
+]

@@ -1,25 +1,53 @@
 {# templates/components/nav.html #}
-{# Navbar global (se incluye desde base.html) #}
+{# Navbar global (páginas públicas) #}
 
 <nav class="nav">
-	{# Contenedor: alinea brand, links y acciones; controla el ancho máximo #}
 	<div class="nav__inner">
 		{# Brand / logo: siempre regresa a la Home #}
 		<a class="nav__brand" href="{% url 'home:home' %}">INNES</a>
 
-		{# Links principales: por ahora placeholders hasta tener URLs reales por app #}
+		{# Links principales (públicos) #}
 		<ul class="nav__links">
-			<li><a href="{% url 'home:home' %}">Inicio</a></li>
-			<li><a href="/admin/">Admin</a></li>
-			<li><a href="#">BACnet</a></li>
-			<li><a href="#">Inventario</a></li>
-			<li><a href="#">Pruebas</a></li>
-			<li><a href="#">Reportes</a></li>
-		</ul>
+			<div>{{ request.path }}</div>
+			{# Inicio #}
+			<li>
+				<a
+					href="{% url 'home:home' %}"
+					class="{% if request.path == '/' %}is-active{% endif %}"
+				>
+					Inicio
+				</a>
+			</li>
 
-		{# Acción primaria (CTA): en MVP apunta al Admin #}
-		<div class="nav__actions">
-			<a class="nav__btn" href="/admin/">Entrar</a>
-		</div>
+			{# Trials #}
+			<li>
+				<a
+					href="/trials/"
+					class="{% if request.path|slice:':8' == '/trials/' %}is-active{% endif %}"
+				>
+					Pruebas
+				</a>
+			</li>
+
+			{# Reports #}
+			<li>
+				<a
+					href="/reports/"
+					class="{% if request.path|slice:':9' == '/reports/' %}is-active{% endif %}"
+				>
+					Reportes
+				</a>
+			</li>
+
+			{# Equipment #}
+			<li>
+				<a
+					href="/equipment/"
+					class="{% if request.path|slice:':11' == '/equipment/' %}is-active{% endif %}"
+				>
+					Equipos
+				</a>
+			</li>
+		</ul>
 	</div>
 </nav>
