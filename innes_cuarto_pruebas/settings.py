@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +28,33 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# --- BACnet (PR_0003) ---
+# Defaults de configuración BACnet (single-row en la UI Admin)
+# Nota: estos valores son defaults. La UI debe permitir editarlos y persistirlos.
+def _env_int(name: str, default: int) -> int:
+    v = os.getenv(name)
+    return default if v in (None, "") else int(v)
+
+def _env_str(name: str, default: str) -> str:
+    v = os.getenv(name)
+    return default if v in (None, "") else v
+
+BACNET_DEFAULTS = {
+    "bind_ip": _env_str("BACNET_BIND_IP", "127.0.0.1"),
+    "mask": _env_str("BACNET_MASK", "24"),
+    "local_port": _env_int("BACNET_LOCAL_PORT", 47808),
+    "broadcast": _env_str("BACNET_BROADCAST", "*:*"),
+    "timeout_seconds": _env_int("BACNET_TIMEOUT_SECONDS", 3),
+    "retries": _env_int("BACNET_RETRIES", 2),
+    "discovery_interval_sec": _env_int("BACNET_DISCOVERY_INTERVAL_SEC", 30),
+    "offline_threshold_broadcast_cycles": _env_int("BACNET_OFFLINE_THRESHOLD_BROADCAST_CYCLES", 2),
+    "write_priority_default": _env_int("BACNET_WRITE_PRIORITY_DEFAULT", 8),
+    "bbmd_enabled": os.getenv("BACNET_BBMD_ENABLED", "0") == "1",
+    "bbmd_address": os.getenv("BACNET_BBMD_ADDRESS") or None,
+    "foreign_device_enabled": os.getenv("BACNET_FOREIGN_DEVICE_ENABLED", "0") == "1",
+    "foreign_device_bbmd_address": os.getenv("BACNET_FOREIGN_DEVICE_BBMD_ADDRESS") or None,
+    "foreign_device_ttl_seconds": _env_int("BACNET_FOREIGN_DEVICE_TTL_SECONDS", 600),
+}
 
 # Application definition
 
